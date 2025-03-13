@@ -1,15 +1,20 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Rocket } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const isActive = (path: string) => {
+    return location.pathname === path;
   };
 
   return (
@@ -18,26 +23,80 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <Rocket className="h-8 w-8 text-primary" />
-              <span className="ml-2 text-xl font-bold text-primary">RocketNav</span>
+              <Heart className="h-8 w-8 text-primary" />
+              <span className="ml-2 text-xl font-bold text-primary">NGO Connect</span>
             </Link>
           </div>
           
           <div className="hidden sm:ml-6 sm:flex sm:items-center sm:space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">
+            <Link 
+              to="/" 
+              className={cn(
+                "px-3 py-2 text-sm font-medium",
+                isActive("/") 
+                  ? "text-primary border-b-2 border-primary" 
+                  : "text-gray-700 hover:text-primary"
+              )}
+            >
               Home
             </Link>
-            <Link to="/services" className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">
-              Services
+            <Link 
+              to="/about" 
+              className={cn(
+                "px-3 py-2 text-sm font-medium",
+                isActive("/about") 
+                  ? "text-primary border-b-2 border-primary" 
+                  : "text-gray-700 hover:text-primary"
+              )}
+            >
+              About Us
             </Link>
-            <Link to="/about" className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">
-              About
+            <Link 
+              to="/services" 
+              className={cn(
+                "px-3 py-2 text-sm font-medium",
+                isActive("/services") 
+                  ? "text-primary border-b-2 border-primary" 
+                  : "text-gray-700 hover:text-primary"
+              )}
+            >
+              Our Work
             </Link>
-            <Link to="/contact" className="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">
+            <Link 
+              to="/get-involved" 
+              className={cn(
+                "px-3 py-2 text-sm font-medium",
+                isActive("/get-involved") 
+                  ? "text-primary border-b-2 border-primary" 
+                  : "text-gray-700 hover:text-primary"
+              )}
+            >
+              Get Involved
+            </Link>
+            <Link 
+              to="/news" 
+              className={cn(
+                "px-3 py-2 text-sm font-medium",
+                isActive("/news") 
+                  ? "text-primary border-b-2 border-primary" 
+                  : "text-gray-700 hover:text-primary"
+              )}
+            >
+              News & Events
+            </Link>
+            <Link 
+              to="/contact" 
+              className={cn(
+                "px-3 py-2 text-sm font-medium",
+                isActive("/contact") 
+                  ? "text-primary border-b-2 border-primary" 
+                  : "text-gray-700 hover:text-primary"
+              )}
+            >
               Contact
             </Link>
-            <Button variant="default" size="sm" className="ml-4">
-              Get Started
+            <Button variant="default" size="sm" asChild>
+              <Link to="/get-involved">Donate</Link>
             </Button>
           </div>
           
@@ -63,34 +122,80 @@ const Navbar = () => {
         <div className="pt-2 pb-3 space-y-1">
           <Link 
             to="/" 
-            className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+            className={cn(
+              "block px-3 py-2 text-base font-medium",
+              isActive("/") 
+                ? "text-primary bg-primary/5" 
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            )}
             onClick={() => setIsMenuOpen(false)}
           >
             Home
           </Link>
           <Link 
-            to="/services" 
-            className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+            to="/about" 
+            className={cn(
+              "block px-3 py-2 text-base font-medium",
+              isActive("/about") 
+                ? "text-primary bg-primary/5" 
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            )}
             onClick={() => setIsMenuOpen(false)}
           >
-            Services
+            About Us
           </Link>
           <Link 
-            to="/about" 
-            className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+            to="/services" 
+            className={cn(
+              "block px-3 py-2 text-base font-medium",
+              isActive("/services") 
+                ? "text-primary bg-primary/5" 
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            )}
             onClick={() => setIsMenuOpen(false)}
           >
-            About
+            Our Work
+          </Link>
+          <Link 
+            to="/get-involved" 
+            className={cn(
+              "block px-3 py-2 text-base font-medium",
+              isActive("/get-involved") 
+                ? "text-primary bg-primary/5" 
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            )}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Get Involved
+          </Link>
+          <Link 
+            to="/news" 
+            className={cn(
+              "block px-3 py-2 text-base font-medium",
+              isActive("/news") 
+                ? "text-primary bg-primary/5" 
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            )}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            News & Events
           </Link>
           <Link 
             to="/contact" 
-            className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+            className={cn(
+              "block px-3 py-2 text-base font-medium",
+              isActive("/contact") 
+                ? "text-primary bg-primary/5" 
+                : "text-gray-700 hover:text-primary hover:bg-gray-50"
+            )}
             onClick={() => setIsMenuOpen(false)}
           >
             Contact
           </Link>
           <div className="px-3 py-2">
-            <Button className="w-full">Get Started</Button>
+            <Button className="w-full" asChild>
+              <Link to="/get-involved" onClick={() => setIsMenuOpen(false)}>Donate Now</Link>
+            </Button>
           </div>
         </div>
       </div>
